@@ -1,6 +1,6 @@
 # bbs_app
 
-A new Flutter project.
+掲示板アプリの作成！
 
 ## Getting Started
 
