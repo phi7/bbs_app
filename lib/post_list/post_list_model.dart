@@ -22,4 +22,10 @@ class PostListModel extends ChangeNotifier {
     //変化を検知し得たことを伝える、Consumerの方で発火して読み込まれる。
     notifyListeners();
   }
+
+  Future delete(Post post) async{
+    return await FirebaseFirestore.instance.collection('posts')
+        .doc(post.id)
+        .delete();
+  }
 }

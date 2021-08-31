@@ -68,6 +68,7 @@ class PostListPage extends StatelessWidget {
                         icon: Icons.delete,
                         onTap: () {
                           //削除する
+                          showConfirmDialog(context, post, model);
                         },
                       ),
                     ],
@@ -113,4 +114,41 @@ class PostListPage extends StatelessWidget {
       ),
     );
   }
+
+  Future showConfirmDialog(BuildContext context, Post post, PostListModel model){
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("削除の確認"),
+          content: Text("『${post.title}』を削除しますか？"),
+          actions: [
+            TextButton(
+              child: Text("いいえ"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("はい"),
+              onPressed: () async {
+                //modelで削除
+                await model.delete(post);
+                Navigator.pop(context);
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(
+                    "${post.title}を削除しました",
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                model.fetchPostList();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
