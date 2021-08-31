@@ -11,10 +11,11 @@ class PostListModel extends ChangeNotifier {
 
     final List<Post> posts = snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      final String id = document.id;
       final String title = data["title"];
       final String content = data["content"];
       //Post型のリストに代入される値を返す
-      return Post(title, content);
+      return Post(id,title, content);
     }).toList();
 
     this.posts = posts;

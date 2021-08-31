@@ -1,6 +1,8 @@
 
 class Post {
-  Post(this.title,this.content);
+  Post(this.id,this.title,this.content);
+
+  String id;
   String title;
   String content;
 }
